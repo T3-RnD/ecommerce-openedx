@@ -28,7 +28,6 @@ SDN_URLS = [
 
 STRIPE_URLS = [
     url(r'^submit/$', stripe.StripeSubmitView.as_view(), name='submit'),
-    url(r'^checkout', stripe.StripeCheckoutView.as_view(), name='checkout'),
 ]
 
 urlpatterns = [
