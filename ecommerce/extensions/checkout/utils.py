@@ -44,7 +44,8 @@ def _use_microfrontend_receipt(request):
     )
 
 
-def get_receipt_page_url(request, site_configuration, order_number=None, override_url=None, disable_back_button=False):
+
+def get_receipt_page_url(site_configuration, order_number=None, override_url=None, disable_back_button=False):
     """ Returns the receipt page URL.
 
     Args:
@@ -66,11 +67,7 @@ def get_receipt_page_url(request, site_configuration, order_number=None, overrid
         url_params['order_number'] = order_number
     if disable_back_button:
         url_params['disable_back_button'] = int(disable_back_button)
-    if _use_microfrontend_receipt(request):
-        url_suffix = '/receipt/'
-        base_url = settings.ECOMMERCE_MICROFRONTEND_URL + url_suffix
-    else:
-        base_url = site_configuration.build_ecommerce_url(reverse('checkout:receipt'))
+    base_url = site_configuration.build_ecommerce_url(reverse('checkout:receipt'))
     params = parse.urlencode(url_params)
 
     return '{base_url}{params}'.format(
